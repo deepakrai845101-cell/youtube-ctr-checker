@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free YouTube Title & Thumbnail Analyzer Tool - Analyze your video titles and thumbnails to improve CTR and boost your channel growth. Perfect for YouTubers, Shorts creators, and content creators.">
+    <meta name="keywords" content="YouTube title analyzer, thumbnail analyzer, CTR optimization, YouTube SEO, video title checker, thumbnail text analyzer, YouTube tools, content creator tools">
+    <title>YouTube Title & Thumbnail Analyzer - Free CTR Optimization Tool</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- SEO Keywords: youtube title analyzer, thumbnail checker, CTR optimization, video title analysis, youtube seo tool, clickthrough rate analyzer -->
+    
+    <div class="container">
+        <!-- Header Section -->
+        <header class="header">
+            <div class="logo">
+                <svg width="40" height="28" viewBox="0 0 40 28" fill="none">
+                    <path d="M39.2 4.4C38.8 2.9 37.6 1.7 36.1 1.3C33 0.5 20 0.5 20 0.5C20 0.5 7 0.5 3.9 1.3C2.4 1.7 1.2 2.9 0.8 4.4C0 7.5 0 14 0 14C0 14 0 20.5 0.8 23.6C1.2 25.1 2.4 26.3 3.9 26.7C7 27.5 20 27.5 20 27.5C20 27.5 33 27.5 36.1 26.7C37.6 26.3 38.8 25.1 39.2 23.6C40 20.5 40 14 40 14C40 14 40 7.5 39.2 4.4Z" fill="#FF0000"/>
+                    <path d="M16 20L26 14L16 8V20Z" fill="white"/>
+                </svg>
+                <h1>Title & Thumbnail Analyzer</h1>
+            </div>
+            <p class="tagline">Optimize your CTR with data-driven insights</p>
+        </header>
+
+        <!-- Landing Info Section -->
+        <section class="info-section">
+            <h2>YouTube Title & Thumbnail Analyzer Tool</h2>
+            <p>Boost your Click Through Rate with our free analyzer. Get instant feedback on your video titles and thumbnail text. Perfect for YouTubers, Shorts creators, and faceless channels looking to improve engagement and grow their audience.</p>
+        </section>
+
+        <!-- Input Section -->
+        <section class="input-section card">
+            <h3>Enter Your Video Details</h3>
+            
+            <div class="input-group">
+                <label for="videoTitle">Video Title</label>
+                <input 
+                    type="text" 
+                    id="videoTitle" 
+                    placeholder="e.g., How I Gained 100K Subscribers in 30 Days"
+                    maxlength="150"
+                >
+                <span class="char-count" id="titleCount">0/100 characters</span>
+            </div>
+
+            <div class="input-group">
+                <label for="thumbnailText">Thumbnail Text</label>
+                <input 
+                    type="text" 
+                    id="thumbnailText" 
+                    placeholder="e.g., 100K IN 30 DAYS"
+                    maxlength="100"
+                >
+                <span class="char-count" id="thumbnailCount">0/50 characters</span>
+            </div>
+
+            <button id="analyzeBtn" class="btn-primary">
+                Analyze Now
+            </button>
+        </section>
+
+        <!-- Results Section -->
+        <section id="resultsSection" class="results-section hidden">
+            
+            <!-- Curiosity Score -->
+            <div class="card score-card">
+                <h3>Curiosity Score</h3>
+                <div class="score-display">
+                    <div class="score-number" id="scoreNumber">0</div>
+                    <div class="score-label">/ 100</div>
+                </div>
+                <div class="score-bar">
+                    <div class="score-fill" id="scoreFill"></div>
+                </div>
+                <p class="score-description" id="scoreDescription"></p>
+            </div>
+
+            <!-- Warnings Section -->
+            <div class="card warnings-card" id="warningsCard">
+                <h3>⚠️ Warnings & Issues</h3>
+                <ul id="warningsList" class="warnings-list"></ul>
+            </div>
+
+            <!-- Suggestions Section -->
+            <div class="card suggestions-card">
+                <h3>💡 Improvement Suggestions</h3>
+                <div id="suggestionsList" class="suggestions-list"></div>
+            </div>
+
+            <!-- Final Verdict -->
+            <div class="card verdict-card" id="verdictCard">
+                <div class="verdict-content">
+                    <span class="verdict-icon" id="verdictIcon"></span>
+                    <div>
+                        <h3 id="verdictTitle">CTR Verdict</h3>
+                        <p id="verdictMessage"></p>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- Tips Section -->
+        <section class="tips-section">
+            <h3>Pro Tips for Better CTR</h3>
+            <div class="tips-grid">
+                <div class="tip-card">
+                    <div class="tip-icon">🎯</div>
+                    <h4>Be Specific</h4>
+                    <p>Vague titles like "Amazing Video" don't work. Be clear about what value you provide.</p>
+                </div>
+                <div class="tip-card">
+                    <div class="tip-icon">🔥</div>
+                    <h4>Create Curiosity</h4>
+                    <p>Leave a question unanswered in your title. Make viewers need to click to satisfy their curiosity.</p>
+                </div>
+                <div class="tip-card">
+                    <div class="tip-icon">✨</div>
+                    <h4>Don't Repeat</h4>
+                    <p>Your thumbnail and title should complement each other, not say the same thing twice.</p>
+                </div>
+                <div class="tip-card">
+                    <div class="tip-icon">📏</div>
+                    <h4>Optimize Length</h4>
+                    <p>Keep titles under 60 characters and thumbnail text under 4 words for maximum impact.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Made for content creators who want to grow 📈</p>
+            <p class="footer-small">Free tool - No signup required - 100% client-side</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
