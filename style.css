@@ -45,6 +45,18 @@ body {
   padding: 30px;
 }
 
+.story-panel {
+  padding: 24px;
+}
+
+.story-panel h3 {
+  margin-top: 12px;
+}
+
+.story-panel p + h3 {
+  margin-top: 14px;
+}
+
 .brand-row {
   display: flex;
   align-items: center;
