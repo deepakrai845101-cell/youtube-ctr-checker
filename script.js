@@ -122,7 +122,7 @@ function analyzeContent() {
 
   // Validation
   if (!title) {
-    alert("Please enter a video title")
+    alert("Enter a video title to start analysis.")
     return
   }
 
@@ -133,7 +133,7 @@ function analyzeContent() {
   // A. Check for clickbait/overused words
   const clickbaitCount = countClickbaitWords(title, thumbnail)
   if (clickbaitCount > 1) {
-    warnings.push(`Found ${clickbaitCount} overused clickbait words. Consider using more authentic language.`)
+    warnings.push(`Detected ${clickbaitCount} overused hype words. Use clearer, more credible wording.`)
   } else {
     score += 20
   }
@@ -142,7 +142,7 @@ function analyzeContent() {
   const repetitionPercent = calculateRepetition(title, thumbnail)
   if (repetitionPercent > 60 && thumbnail) {
     warnings.push(
-      `${Math.round(repetitionPercent)}% word repetition detected. Thumbnail should add curiosity, not repeat the title.`,
+      `${Math.round(repetitionPercent)}% copy overlap detected. Let your thumbnail add new context, not repeat the title.`,
     )
   } else if (thumbnail) {
     score += 20
@@ -150,7 +150,7 @@ function analyzeContent() {
 
   // C. Length optimization
   if (title.length > 60) {
-    warnings.push(`Title is ${title.length} characters. Keep it under 60 for better visibility on mobile.`)
+    warnings.push(`Title is ${title.length} characters. Keep it under 60 for stronger mobile visibility.`)
   } else if (title.length >= 30) {
     score += 20
   }
@@ -162,7 +162,7 @@ function analyzeContent() {
         .filter((w) => w.length > 0)
     : []
   if (thumbnail && thumbnailWords.length > 4) {
-    warnings.push(`Thumbnail has ${thumbnailWords.length} words. Keep it under 4 words for better readability.`)
+    warnings.push(`Thumbnail has ${thumbnailWords.length} words. Keep it under 4 words for fast readability.`)
   } else if (thumbnail && thumbnailWords.length > 0) {
     score += 20
   }
@@ -243,20 +243,20 @@ function displayResults(score, warnings, title, thumbnail) {
 
   // Display score description
   if (score <= 40) {
-    scoreDescription.textContent = "Your title and thumbnail need significant improvement to boost CTR."
+    scoreDescription.textContent = "Your packaging needs stronger clarity and positioning before publish."
     scoreFill.className = "score-fill low"
   } else if (score <= 70) {
-    scoreDescription.textContent = "Good foundation, but there's room for optimization to maximize CTR."
+    scoreDescription.textContent = "Strong foundation. A few refinements can meaningfully improve click-through rate."
     scoreFill.className = "score-fill medium"
   } else {
-    scoreDescription.textContent = "Excellent! Your title and thumbnail are optimized for high CTR."
+    scoreDescription.textContent = "Excellent. Your title and thumbnail are well-positioned for strong CTR performance."
     scoreFill.className = "score-fill high"
   }
 
   // Display warnings
   warningsList.innerHTML = ""
   if (warnings.length === 0) {
-    warningsList.innerHTML = '<li class="success">✅ No major issues detected!</li>'
+    warningsList.innerHTML = '<li class="success">✅ Looks strong—no critical issues detected.</li>'
   } else {
     warnings.forEach((warning) => {
       const li = document.createElement("li")
@@ -310,7 +310,7 @@ function generateSuggestions(title, thumbnail) {
     div.style.animationDelay = `${index * 0.1}s`
 
     div.innerHTML = `
-            <div class="suggestion-label">Option ${index + 1}</div>
+            <div class="suggestion-label">Template ${index + 1}</div>
             <div class="suggestion-text">${suggestion}</div>
         `
 
@@ -322,13 +322,13 @@ function generateSuggestions(title, thumbnail) {
   customDiv.className = "suggestion-item"
   customDiv.style.animationDelay = "0.3s"
 
-  let customSuggestion = "Try making your title more specific and your thumbnail more curiosity-driven."
+  let customSuggestion = "Make the promise in your title more specific and let the thumbnail highlight the payoff."
   if (thumbnail) {
-    customSuggestion = `Consider: "${title.substring(0, 40)}..." with thumbnail text that teases a result or transformation.`
+    customSuggestion = `Try: "${title.substring(0, 40)}..." with thumbnail text that previews a clear result.`
   }
 
   customDiv.innerHTML = `
-        <div class="suggestion-label">Custom Tip</div>
+        <div class="suggestion-label">Strategic Tip</div>
         <div class="suggestion-text">${customSuggestion}</div>
     `
 
@@ -341,20 +341,20 @@ function displayVerdict(score) {
   if (score <= 40) {
     verdictCard.classList.add("low")
     verdictIcon.textContent = "❌"
-    verdictTitle.textContent = "Low CTR Risk"
+    verdictTitle.textContent = "Needs Revision"
     verdictMessage.textContent =
-      "This title and thumbnail combination likely won't perform well. Consider the suggestions above to improve your CTR."
+      "This combination may underperform. Apply the recommendations above before publishing."
   } else if (score <= 70) {
     verdictCard.classList.add("medium")
     verdictIcon.textContent = "⚠️"
-    verdictTitle.textContent = "Medium CTR Potential"
+    verdictTitle.textContent = "Promising with Edits"
     verdictMessage.textContent =
-      "You're on the right track! A few tweaks based on the suggestions could significantly boost your CTR."
+      "You are close. A few targeted edits can improve clarity and lift click-through rate."
   } else {
     verdictCard.classList.add("high")
     verdictIcon.textContent = "✅"
-    verdictTitle.textContent = "High CTR Ready"
+    verdictTitle.textContent = "Ready to Publish"
     verdictMessage.textContent =
-      "Great work! This title and thumbnail combination is optimized for clicks. Your video is ready to perform well."
+      "Great work. This combination is clear, compelling, and ready for launch."
   }
 }
