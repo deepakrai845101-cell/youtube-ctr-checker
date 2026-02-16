@@ -5,6 +5,17 @@ const analyzeBtn = document.getElementById("analyzeBtn")
 const resultsSection = document.getElementById("resultsSection")
 const titleCount = document.getElementById("titleCount")
 const thumbnailCount = document.getElementById("thumbnailCount")
+const viewsInput = document.getElementById("viewsInput")
+const clicksInput = document.getElementById("clicksInput")
+const cpmInput = document.getElementById("cpmInput")
+const rpmInput = document.getElementById("rpmInput")
+const calculateRevenueBtn = document.getElementById("calculateRevenueBtn")
+const revenueResults = document.getElementById("revenueResults")
+const ctrValue = document.getElementById("ctrValue")
+const estimatedRpmValue = document.getElementById("estimatedRpmValue")
+const cpmEarningsValue = document.getElementById("cpmEarningsValue")
+const rpmEarningsValue = document.getElementById("rpmEarningsValue")
+const rpmNote = document.getElementById("rpmNote")
 
 // Results elements
 const scoreNumber = document.getElementById("scoreNumber")
@@ -106,6 +117,7 @@ thumbnailTextInput.addEventListener("input", (e) => {
 
 // Analyze button click
 analyzeBtn.addEventListener("click", analyzeContent)
+calculateRevenueBtn.addEventListener("click", calculateRevenueMetrics)
 
 // Allow Enter key to trigger analysis
 videoTitleInput.addEventListener("keypress", (e) => {
@@ -114,6 +126,13 @@ videoTitleInput.addEventListener("keypress", (e) => {
 
 thumbnailTextInput.addEventListener("keypress", (e) => {
   if (e.key === "Enter") analyzeContent()
+})
+
+const revenueInputs = [viewsInput, clicksInput, cpmInput, rpmInput]
+revenueInputs.forEach((input) => {
+  input.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") calculateRevenueMetrics()
+  })
 })
 
 function analyzeContent() {
@@ -357,4 +376,66 @@ function displayVerdict(score) {
     verdictMessage.textContent =
       "Great work. This combination is clear, compelling, and ready for launch."
   }
+}
+
+function calculateRevenueMetrics() {
+  const views = Number(viewsInput.value)
+  const clicks = Number(clicksInput.value)
+  const cpm = Number(cpmInput.value)
+  const rpmRaw = rpmInput.value.trim()
+  const hasCustomRpm = rpmRaw !== ""
+  const rpm = hasCustomRpm ? Number(rpmRaw) : null
+
+  if (!isValidNonNegative(views) || views <= 0) {
+    alert("Please enter views greater than 0.")
+    return
+  }
+
+  if (!isValidNonNegative(clicks)) {
+    alert("Please enter valid clicks (0 or more).")
+    return
+  }
+
+  if (clicks > views) {
+    alert("Clicks cannot be greater than views.")
+    return
+  }
+
+  if (!isValidNonNegative(cpm)) {
+    alert("Please enter a valid CPM (0 or more).")
+    return
+  }
+
+  if (hasCustomRpm && !isValidNonNegative(rpm)) {
+    alert("Please enter a valid RPM (0 or more), or leave RPM empty.")
+    return
+  }
+
+  const ctr = (clicks / views) * 100
+  const estimatedRpm = hasCustomRpm ? rpm : cpm * 0.55
+  const cpmEarnings = (views / 1000) * cpm
+  const rpmEarnings = (views / 1000) * estimatedRpm
+
+  ctrValue.textContent = `${ctr.toFixed(2)}%`
+  estimatedRpmValue.textContent = formatCurrency(estimatedRpm)
+  cpmEarningsValue.textContent = formatCurrency(cpmEarnings)
+  rpmEarningsValue.textContent = formatCurrency(rpmEarnings)
+  rpmNote.textContent = hasCustomRpm
+    ? "Using your entered RPM to estimate creator earnings"
+    : "Estimated from CPM with a default 55% creator share"
+
+  revenueResults.classList.remove("hidden")
+}
+
+function isValidNonNegative(value) {
+  return Number.isFinite(value) && value >= 0
+}
+
+function formatCurrency(value) {
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  }).format(value)
 }
