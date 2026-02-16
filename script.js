@@ -21,6 +21,13 @@ const thumbnailPreviewWrap = document.getElementById("thumbnailPreviewWrap")
 const thumbnailPreview = document.getElementById("thumbnailPreview")
 const thumbnailChecklistInputs = document.querySelectorAll("#thumbnailChecklist input[type='checkbox']")
 const thumbnailTips = document.getElementById("thumbnailTips")
+const titleCheckerInput = document.getElementById("titleCheckerInput")
+const checkTitleScoreBtn = document.getElementById("checkTitleScoreBtn")
+const titleCheckerResults = document.getElementById("titleCheckerResults")
+const titleScoreValue = document.getElementById("titleScoreValue")
+const titleScoreSummary = document.getElementById("titleScoreSummary")
+const titleBreakdownList = document.getElementById("titleBreakdownList")
+const titleSuggestionsList = document.getElementById("titleSuggestionsList")
 
 // Results elements
 const scoreNumber = document.getElementById("scoreNumber")
@@ -84,6 +91,28 @@ const powerWords = [
   "honest",
 ]
 
+const emotionalWords = [
+  "surprising",
+  "surprised",
+  "shocking",
+  "proven",
+  "warning",
+  "mistake",
+  "mistakes",
+  "secret",
+  "fear",
+  "amazing",
+  "simple",
+  "easy",
+  "powerful",
+  "essential",
+  "urgent",
+  "fail",
+  "failed",
+  "success",
+  "breakthrough",
+]
+
 // Title templates for suggestions
 const titleTemplates = [
   "I Tried [TOPIC] So You Don't Have To",
@@ -123,6 +152,7 @@ thumbnailTextInput.addEventListener("input", (e) => {
 // Analyze button click
 analyzeBtn.addEventListener("click", analyzeContent)
 calculateRevenueBtn.addEventListener("click", calculateRevenueMetrics)
+checkTitleScoreBtn.addEventListener("click", checkTitleScore)
 
 // Allow Enter key to trigger analysis
 videoTitleInput.addEventListener("keypress", (e) => {
@@ -131,6 +161,10 @@ videoTitleInput.addEventListener("keypress", (e) => {
 
 thumbnailTextInput.addEventListener("keypress", (e) => {
   if (e.key === "Enter") analyzeContent()
+})
+
+titleCheckerInput.addEventListener("keypress", (e) => {
+  if (e.key === "Enter") checkTitleScore()
 })
 
 const revenueInputs = [viewsInput, clicksInput, cpmInput, rpmInput]
@@ -490,6 +524,111 @@ function calculateRevenueMetrics() {
     : "Estimated from CPM with a default 55% creator share"
 
   revenueResults.classList.remove("hidden")
+}
+
+function checkTitleScore() {
+  const title = titleCheckerInput.value.trim()
+
+  if (!title) {
+    alert("Please enter a title to score.")
+    return
+  }
+
+  let score = 0
+  const breakdown = []
+  const suggestions = []
+
+  const lengthPoints = scoreLength(title)
+  score += lengthPoints
+  breakdown.push(`Length: ${lengthPoints}/30`)
+  if (lengthPoints < 30) {
+    suggestions.push("Aim for 45-60 characters so the full title is easier to scan on mobile.")
+  }
+
+  const emotionalPoints = scoreEmotionalWords(title)
+  score += emotionalPoints
+  breakdown.push(`Emotional words: ${emotionalPoints}/20`)
+  if (emotionalPoints < 20) {
+    suggestions.push("Add one emotionally engaging word like 'mistake', 'warning', or 'surprising'.")
+  }
+
+  const numbersPoints = /\d/.test(title) ? 15 : 0
+  score += numbersPoints
+  breakdown.push(`Numbers usage: ${numbersPoints}/15`)
+  if (numbersPoints === 0) {
+    suggestions.push("Consider adding a number (e.g., 3, 7, 2026) to make the promise more specific.")
+  }
+
+  const powerWordPoints = scorePowerWords(title)
+  score += powerWordPoints
+  breakdown.push(`Power words: ${powerWordPoints}/20`)
+  if (powerWordPoints < 20) {
+    suggestions.push("Use a power word such as 'ultimate', 'proven', 'best', or 'complete'.")
+  }
+
+  const questionPoints = title.includes("?") ? 15 : 0
+  score += questionPoints
+  breakdown.push(`Question format: ${questionPoints}/15`)
+  if (questionPoints === 0) {
+    suggestions.push("Test a question-style title to trigger curiosity, like 'Why Is Your CTR Still Low?'.")
+  }
+
+  renderTitleScoreResults(score, breakdown, suggestions)
+}
+
+function scoreLength(title) {
+  if (title.length >= 45 && title.length <= 60) return 30
+  if (title.length >= 35 && title.length <= 70) return 20
+  if (title.length >= 25 && title.length <= 80) return 10
+  return 0
+}
+
+function scoreEmotionalWords(title) {
+  const lowerTitle = title.toLowerCase()
+  const matches = emotionalWords.filter((word) => lowerTitle.includes(word))
+  if (matches.length >= 2) return 20
+  if (matches.length === 1) return 12
+  return 0
+}
+
+function scorePowerWords(title) {
+  const lowerTitle = title.toLowerCase()
+  const matches = powerWords.filter((word) => lowerTitle.includes(word))
+  if (matches.length >= 2) return 20
+  if (matches.length === 1) return 12
+  return 0
+}
+
+function renderTitleScoreResults(score, breakdown, suggestions) {
+  titleCheckerResults.classList.remove("hidden")
+  titleScoreValue.textContent = score
+
+  if (score >= 80) {
+    titleScoreSummary.textContent = "Strong title foundation. Minor tweaks could make it even sharper."
+  } else if (score >= 55) {
+    titleScoreSummary.textContent = "Decent start. A few improvements could boost click potential."
+  } else {
+    titleScoreSummary.textContent = "Needs optimization. Use the suggestions below to improve this title."
+  }
+
+  titleBreakdownList.innerHTML = ""
+  breakdown.forEach((item) => {
+    const li = document.createElement("li")
+    li.textContent = item
+    titleBreakdownList.appendChild(li)
+  })
+
+  titleSuggestionsList.innerHTML = ""
+  if (suggestions.length === 0) {
+    titleSuggestionsList.innerHTML = "<li>Excellent work. Your title checks all score factors.</li>"
+    return
+  }
+
+  suggestions.forEach((item) => {
+    const li = document.createElement("li")
+    li.textContent = item
+    titleSuggestionsList.appendChild(li)
+  })
 }
 
 function isValidNonNegative(value) {
