@@ -168,6 +168,12 @@ p:last-child {
   color: var(--text-muted);
 }
 
+.input-helper {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
 /* Button */
 .btn-primary {
   width: 100%;
