@@ -190,6 +190,46 @@
         </div>
       </section>
 
+      <section class="card panel description-panel">
+        <div class="section-head">
+          <h2>YouTube Description Generator</h2>
+          <p>Add your core video details and generate a copy-ready description block you can paste into YouTube.</p>
+        </div>
+
+        <div class="description-input-grid">
+          <div class="input-group">
+            <label for="descriptionTitleInput">Video title</label>
+            <input type="text" id="descriptionTitleInput" placeholder="Example: How I Gained 100K Subscribers in 30 Days" maxlength="150" />
+          </div>
+
+          <div class="input-group">
+            <label for="descriptionKeywordInput">Main keyword</label>
+            <input type="text" id="descriptionKeywordInput" placeholder="Example: youtube growth strategy" maxlength="80" />
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label for="descriptionSummaryInput">Short summary</label>
+          <input
+            type="text"
+            id="descriptionSummaryInput"
+            placeholder="Example: In this video I share the exact framework I used to improve CTR, retention, and subscriber growth."
+            maxlength="220"
+          />
+        </div>
+
+        <button id="generateDescriptionBtn" class="btn-primary">Generate Description</button>
+
+        <div id="descriptionResults" class="description-results hidden" aria-live="polite">
+          <p class="description-note">Copy-ready output:</p>
+          <textarea id="descriptionOutput" class="description-output" readonly></textarea>
+          <div class="description-actions">
+            <button id="copyDescriptionBtn" class="btn-secondary" type="button">Copy Description</button>
+            <span id="copyDescriptionStatus" class="copy-status" role="status" aria-live="polite"></span>
+          </div>
+        </div>
+      </section>
+
       <section class="card panel thumbnail-panel">
         <div class="section-head">
           <h2>Thumbnail CTR Analyzer</h2>
