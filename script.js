@@ -34,8 +34,17 @@ const hashtagResults = document.getElementById("hashtagResults")
 const hashtagList = document.getElementById("hashtagList")
 const copyHashtagsBtn = document.getElementById("copyHashtagsBtn")
 const copyHashtagsStatus = document.getElementById("copyHashtagsStatus")
+const descriptionTitleInput = document.getElementById("descriptionTitleInput")
+const descriptionKeywordInput = document.getElementById("descriptionKeywordInput")
+const descriptionSummaryInput = document.getElementById("descriptionSummaryInput")
+const generateDescriptionBtn = document.getElementById("generateDescriptionBtn")
+const descriptionResults = document.getElementById("descriptionResults")
+const descriptionOutput = document.getElementById("descriptionOutput")
+const copyDescriptionBtn = document.getElementById("copyDescriptionBtn")
+const copyDescriptionStatus = document.getElementById("copyDescriptionStatus")
 
 let currentHashtags = []
+let currentDescription = ""
 
 // Results elements
 const scoreNumber = document.getElementById("scoreNumber")
@@ -182,6 +191,8 @@ calculateRevenueBtn.addEventListener("click", calculateRevenueMetrics)
 checkTitleScoreBtn.addEventListener("click", checkTitleScore)
 generateHashtagsBtn.addEventListener("click", generateHashtags)
 copyHashtagsBtn.addEventListener("click", copyGeneratedHashtags)
+generateDescriptionBtn.addEventListener("click", generateDescription)
+copyDescriptionBtn.addEventListener("click", copyGeneratedDescription)
 
 // Allow Enter key to trigger analysis
 videoTitleInput.addEventListener("keypress", (e) => {
@@ -198,6 +209,13 @@ titleCheckerInput.addEventListener("keypress", (e) => {
 
 hashtagTopicInput.addEventListener("keypress", (e) => {
   if (e.key === "Enter") generateHashtags()
+})
+
+const descriptionInputs = [descriptionTitleInput, descriptionKeywordInput, descriptionSummaryInput]
+descriptionInputs.forEach((input) => {
+  input.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") generateDescription()
+  })
 })
 
 const revenueInputs = [viewsInput, clicksInput, cpmInput, rpmInput]
@@ -770,6 +788,89 @@ async function copyGeneratedHashtags() {
   } catch {
     copyHashtagsStatus.textContent = "Copy failed. Select and copy manually."
   }
+}
+
+function generateDescription() {
+  const videoTitle = descriptionTitleInput.value.trim()
+  const mainKeyword = descriptionKeywordInput.value.trim()
+  const shortSummary = descriptionSummaryInput.value.trim()
+
+  if (!videoTitle || !mainKeyword || !shortSummary) {
+    alert("Please fill in video title, main keyword, and short summary.")
+    return
+  }
+
+  const normalizedKeyword = toTitleCase(mainKeyword)
+  const ctaLines = [
+    `👍 If this helped, like the video and subscribe for more ${mainKeyword} strategies.`,
+    `💬 Comment your biggest challenge with ${mainKeyword} so I can cover it in the next upload.`,
+  ]
+
+  const hashtags = buildDescriptionHashtags(mainKeyword)
+  const keywordParagraph = `This video is built for creators searching for ${mainKeyword}. If you want better results with ${mainKeyword}, use this framework step by step and apply it before your next upload for stronger click-through and audience growth.`
+
+  currentDescription = [
+    `${videoTitle}`,
+    "",
+    `SEO-Friendly Description:\n${shortSummary} In this guide, you will learn practical steps to apply ${mainKeyword} without guesswork so you can improve content packaging and reach the right viewers.`,
+    "",
+    `Keyword-Optimized Paragraph:\n${keywordParagraph}`,
+    "",
+    `CTA Lines:\n${ctaLines.join("\n")}`,
+    "",
+    `Hashtags:\n${hashtags.join(" ")}`,
+  ].join("\n")
+
+  descriptionOutput.value = currentDescription
+  descriptionResults.classList.remove("hidden")
+  copyDescriptionStatus.textContent = `${normalizedKeyword} description is ready to copy.`
+}
+
+function buildDescriptionHashtags(keyword) {
+  const words = keyword
+    .toLowerCase()
+    .replace(/[^a-z0-9\s]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim()
+    .split(" ")
+    .filter((word) => word.length > 1)
+
+  const compact = words.join("") || "youtube"
+  const prefix = words.slice(0, 2).join("") || compact
+
+  return [
+    toHashtag(compact),
+    toHashtag(`${compact}tips`),
+    toHashtag(`${compact}strategy`),
+    toHashtag(`${prefix}guide`),
+    "#youtubegrowth",
+    "#contentcreator",
+    "#youtubetips",
+    "#videomarketing",
+  ]
+}
+
+async function copyGeneratedDescription() {
+  if (!currentDescription) {
+    copyDescriptionStatus.textContent = "Generate description text first."
+    return
+  }
+
+  try {
+    await navigator.clipboard.writeText(currentDescription)
+    copyDescriptionStatus.textContent = "Description copied!"
+  } catch {
+    copyDescriptionStatus.textContent = "Copy failed. Select and copy manually."
+  }
+}
+
+function toTitleCase(value) {
+  return value
+    .toLowerCase()
+    .split(" ")
+    .filter((word) => word.length > 0)
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ")
 }
 
 function isValidNonNegative(value) {
