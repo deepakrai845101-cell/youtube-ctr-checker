@@ -42,6 +42,9 @@ const descriptionResults = document.getElementById("descriptionResults")
 const descriptionOutput = document.getElementById("descriptionOutput")
 const copyDescriptionBtn = document.getElementById("copyDescriptionBtn")
 const copyDescriptionStatus = document.getElementById("copyDescriptionStatus")
+const themeToggle = document.getElementById("themeToggle")
+
+const THEME_STORAGE_KEY = "preferredTheme"
 
 let currentHashtags = []
 let currentDescription = ""
@@ -150,6 +153,35 @@ const topicStopWords = new Set([
 ])
 
 // Title templates for suggestions
+function applyTheme(theme) {
+  const isDark = theme === "dark"
+  document.body.classList.toggle("theme-dark", isDark)
+
+  if (themeToggle) {
+    themeToggle.setAttribute("aria-pressed", String(isDark))
+    themeToggle.setAttribute("aria-label", isDark ? "Enable light mode" : "Enable dark mode")
+    themeToggle.textContent = isDark ? "☀️ Light mode" : "🌙 Dark mode"
+  }
+}
+
+function loadSavedTheme() {
+  const savedTheme = localStorage.getItem(THEME_STORAGE_KEY)
+  if (savedTheme === "dark" || savedTheme === "light") {
+    applyTheme(savedTheme)
+    return
+  }
+
+  const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches
+  applyTheme(prefersDark ? "dark" : "light")
+}
+
+function toggleTheme() {
+  const isDark = document.body.classList.contains("theme-dark")
+  const nextTheme = isDark ? "light" : "dark"
+  applyTheme(nextTheme)
+  localStorage.setItem(THEME_STORAGE_KEY, nextTheme)
+}
+
 const titleTemplates = [
   "I Tried [TOPIC] So You Don't Have To",
   "This Changed Everything About [TOPIC]",
@@ -193,6 +225,9 @@ generateHashtagsBtn.addEventListener("click", generateHashtags)
 copyHashtagsBtn.addEventListener("click", copyGeneratedHashtags)
 generateDescriptionBtn.addEventListener("click", generateDescription)
 copyDescriptionBtn.addEventListener("click", copyGeneratedDescription)
+if (themeToggle) themeToggle.addEventListener("click", toggleTheme)
+
+loadSavedTheme()
 
 // Allow Enter key to trigger analysis
 videoTitleInput.addEventListener("keypress", (e) => {
