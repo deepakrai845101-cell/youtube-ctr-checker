@@ -135,6 +135,62 @@
         </section>
       </main>
 
+      <section class="card panel thumbnail-panel">
+        <div class="section-head">
+          <h2>Thumbnail CTR Analyzer</h2>
+          <p>Upload your thumbnail, run a quick visual checklist, and get instant improvement tips. No data is saved.</p>
+        </div>
+
+        <div class="thumbnail-grid">
+          <div>
+            <label class="upload-label" for="thumbnailUpload">Upload thumbnail image</label>
+            <input type="file" id="thumbnailUpload" accept="image/*" />
+            <p class="input-helper local-only">Everything runs locally in your browser</p>
+
+            <div class="thumbnail-preview-wrap hidden" id="thumbnailPreviewWrap">
+              <img id="thumbnailPreview" alt="Uploaded thumbnail preview" />
+            </div>
+          </div>
+
+          <div class="thumbnail-review">
+            <h3>Display checklist</h3>
+            <ul class="thumbnail-checklist" id="thumbnailChecklist">
+              <li>
+                <label>
+                  <input type="checkbox" data-tip="Increase separation between foreground and background to boost contrast." />
+                  High contrast?
+                </label>
+              </li>
+              <li>
+                <label>
+                  <input type="checkbox" data-tip="Use fewer words and a heavier font so text is readable on mobile." />
+                  Big readable text?
+                </label>
+              </li>
+              <li>
+                <label>
+                  <input type="checkbox" data-tip="Simplify composition so the main subject is obvious in under a second." />
+                  Clear subject?
+                </label>
+              </li>
+              <li>
+                <label>
+                  <input type="checkbox" data-tip="Show a stronger facial reaction or emotional cue to increase curiosity." />
+                  Emotional expression?
+                </label>
+              </li>
+            </ul>
+
+            <div class="thumbnail-tips">
+              <h3>Improvement tips</h3>
+              <ul id="thumbnailTips">
+                <li>Upload a thumbnail and check each item to get tailored suggestions.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section class="card panel revenue-panel">
         <div class="section-head">
           <h2>Advanced YouTube Revenue + CTR Calculator</h2>

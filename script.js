@@ -16,6 +16,11 @@ const estimatedRpmValue = document.getElementById("estimatedRpmValue")
 const cpmEarningsValue = document.getElementById("cpmEarningsValue")
 const rpmEarningsValue = document.getElementById("rpmEarningsValue")
 const rpmNote = document.getElementById("rpmNote")
+const thumbnailUpload = document.getElementById("thumbnailUpload")
+const thumbnailPreviewWrap = document.getElementById("thumbnailPreviewWrap")
+const thumbnailPreview = document.getElementById("thumbnailPreview")
+const thumbnailChecklistInputs = document.querySelectorAll("#thumbnailChecklist input[type='checkbox']")
+const thumbnailTips = document.getElementById("thumbnailTips")
 
 // Results elements
 const scoreNumber = document.getElementById("scoreNumber")
@@ -134,6 +139,66 @@ revenueInputs.forEach((input) => {
     if (e.key === "Enter") calculateRevenueMetrics()
   })
 })
+
+let thumbnailObjectUrl = ""
+
+thumbnailUpload.addEventListener("change", handleThumbnailUpload)
+thumbnailChecklistInputs.forEach((input) => {
+  input.addEventListener("change", updateThumbnailTips)
+})
+
+function handleThumbnailUpload(event) {
+  const [file] = event.target.files || []
+
+  if (!file) {
+    clearThumbnailPreview()
+    return
+  }
+
+  if (thumbnailObjectUrl) {
+    URL.revokeObjectURL(thumbnailObjectUrl)
+  }
+
+  thumbnailObjectUrl = URL.createObjectURL(file)
+  thumbnailPreview.src = thumbnailObjectUrl
+  thumbnailPreviewWrap.classList.remove("hidden")
+  updateThumbnailTips()
+}
+
+function clearThumbnailPreview() {
+  thumbnailPreview.removeAttribute("src")
+  thumbnailPreviewWrap.classList.add("hidden")
+
+  if (thumbnailObjectUrl) {
+    URL.revokeObjectURL(thumbnailObjectUrl)
+    thumbnailObjectUrl = ""
+  }
+
+  thumbnailTips.innerHTML = "<li>Upload a thumbnail and check each item to get tailored suggestions.</li>"
+}
+
+function updateThumbnailTips() {
+  const pendingTips = []
+
+  thumbnailChecklistInputs.forEach((input) => {
+    if (!input.checked) {
+      pendingTips.push(input.dataset.tip)
+    }
+  })
+
+  thumbnailTips.innerHTML = ""
+
+  if (pendingTips.length === 0) {
+    thumbnailTips.innerHTML = "<li>Strong thumbnail fundamentals. You are ready to test this version.</li>"
+    return
+  }
+
+  pendingTips.forEach((tip) => {
+    const li = document.createElement("li")
+    li.textContent = tip
+    thumbnailTips.appendChild(li)
+  })
+}
 
 function analyzeContent() {
   const title = videoTitleInput.value.trim()
