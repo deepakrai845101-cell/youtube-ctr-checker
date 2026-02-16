@@ -1,272 +1,160 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <meta name="google-site-verification" content="kBrNONIErOOIVN2Y9hO9BIuJn_Ge-pefMcNGPpuiW2Q" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="title" content="YouTube CTR Optimizer | Title & Thumbnail Analyzer">
-    <meta name="description" content="Analyze your YouTube title and thumbnail copy with clear CTR guidance. Get instant recommendations in a professional, no-signup workflow.">
-    <meta name="keywords" content="youtube ctr checker, youtube ctr calculator, ctr calculator youtube, youtube click through rate tool, what is ctr on youtube, good ctr for youtube, improve youtube ctr, youtube analytics free tool, calculate youtube ctr online">
-    <meta name="robots" content="index, follow">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="title" content="YouTube CTR Optimizer | Title & Thumbnail Analyzer" />
+    <meta
+      name="description"
+      content="Analyze your YouTube title and thumbnail copy with clear CTR guidance. Get instant recommendations in a professional, no-signup workflow."
+    />
+    <meta
+      name="keywords"
+      content="youtube ctr checker, youtube ctr calculator, ctr calculator youtube, youtube click through rate tool, what is ctr on youtube, good ctr for youtube, improve youtube ctr, youtube analytics free tool, calculate youtube ctr online"
+    />
+    <meta name="robots" content="index, follow" />
     <title>YouTube CTR Optimizer | Premium Title & Thumbnail Analyzer</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <!-- SEO Keywords: youtube ctr checker, youtube ctr calculator, ctr calculator youtube, youtube click through rate tool, youtube analytics free tool -->
-    
-    <div class="container">
-        <!-- Header Section -->
-        <header class="header">
-            <div class="logo">
-                <svg width="40" height="28" viewBox="0 0 40 28" fill="none">
-                    <path d="M39.2 4.4C38.8 2.9 37.6 1.7 36.1 1.3C33 0.5 20 0.5 20 0.5C20 0.5 7 0.5 3.9 1.3C2.4 1.7 1.2 2.9 0.8 4.4C0 7.5 0 14 0 14C0 14 0 20.5 0.8 23.6C1.2 25.1 2.4 26.3 3.9 26.7C7 27.5 20 27.5 20 27.5C20 27.5 33 27.5 36.1 26.7C37.6 26.3 38.8 25.1 39.2 23.6C40 20.5 40 14 40 14C40 14 40 7.5 39.2 4.4Z" fill="#1a73e8"/>
-                    <path d="M16 20L26 14L16 8V20Z" fill="white"/>
-                </svg>
-                <h1>YouTube CTR Optimizer</h1>
-            </div>
-            <p class="tagline">Professional title and thumbnail analysis to improve click-through performance.</p>
-        </header>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="hero card">
+        <div class="brand-row">
+          <div class="brand-mark" aria-hidden="true">▶</div>
+          <div>
+            <p class="badge">Analytics-inspired workflow</p>
+            <h1>YouTube CTR Optimizer</h1>
+          </div>
+        </div>
+        <p class="hero-text">
+          Analyze title and thumbnail messaging in a clean, data-first layout inspired by modern creator analytics dashboards.
+        </p>
+      </header>
 
-        <!-- Landing Info Section -->
-        <section class="info-section">
-            <h2>Optimize Before You Publish</h2>
-            <p>Review your title and thumbnail copy in seconds. Get clear feedback, actionable next steps, and publish with more confidence.</p>
+      <main class="dashboard-grid">
+        <section class="card panel intro-panel">
+          <h2>Packaging Health Check</h2>
+          <p>
+            Run a fast pre-publish review to catch weak hooks, copy overlap, and readability issues before your video goes live.
+          </p>
+          <div class="mini-metrics">
+            <article>
+              <h3>Speed</h3>
+              <p>Instant score with no signup</p>
+            </article>
+            <article>
+              <h3>Focus</h3>
+              <p>Actionable edits for title + thumbnail</p>
+            </article>
+            <article>
+              <h3>Privacy</h3>
+              <p>All analysis runs in your browser</p>
+            </article>
+          </div>
         </section>
 
-        <!-- Input Section -->
-        <section class="input-section card">
-            <h3>Analyze Your Creative</h3>
-            
-            <div class="input-group">
-                <label for="videoTitle">Video title</label>
-                <input 
-                    type="text" 
-                    id="videoTitle" 
-                    placeholder="Example: How I Gained 100K Subscribers in 30 Days"
-                    maxlength="150"
-                >
-                <span class="char-count" id="titleCount">0/100 characters</span>
-            </div>
+        <section class="card panel input-section">
+          <div class="section-head">
+            <h2>Creative Inputs</h2>
+            <p>Enter your title and thumbnail copy.</p>
+          </div>
 
-            <div class="input-group">
-                <label for="thumbnailText">Thumbnail text</label>
-                <input 
-                    type="text" 
-                    id="thumbnailText" 
-                    placeholder="Example: 100K IN 30 DAYS"
-                    maxlength="100"
-                >
-                <span class="char-count" id="thumbnailCount">0/50 characters</span>
-            </div>
+          <div class="input-group">
+            <label for="videoTitle">Video title</label>
+            <input
+              type="text"
+              id="videoTitle"
+              placeholder="Example: How I Gained 100K Subscribers in 30 Days"
+              maxlength="150"
+            />
+            <span class="char-count" id="titleCount">0/100 characters</span>
+          </div>
 
-            <p class="input-helper">Your data is processed locally.</p>
-            <p class="input-helper">No signup required.</p>
+          <div class="input-group">
+            <label for="thumbnailText">Thumbnail text</label>
+            <input type="text" id="thumbnailText" placeholder="Example: 100K IN 30 DAYS" maxlength="100" />
+            <span class="char-count" id="thumbnailCount">0/50 characters</span>
+          </div>
 
-            <button id="analyzeBtn" class="btn-primary">
-                Analyze CTR Potential
-            </button>
+          <div class="helper-row">
+            <p class="input-helper">Local processing only</p>
+            <p class="input-helper">No account required</p>
+          </div>
+
+          <button id="analyzeBtn" class="btn-primary">Analyze CTR Potential</button>
         </section>
+      </main>
 
-        <!-- Results Section -->
-        <section id="resultsSection" class="results-section hidden">
-            
-            <!-- Curiosity Score -->
-            <div class="card score-card">
-                <h3>CTR Potential Score</h3>
-                <div class="score-display">
-                    <div class="score-number" id="scoreNumber">0</div>
-                    <div class="score-label">/ 100</div>
-                </div>
-                <div class="score-bar">
-                    <div class="score-fill" id="scoreFill"></div>
-                </div>
-                <p class="score-description" id="scoreDescription"></p>
+      <section id="resultsSection" class="results-section hidden">
+        <div class="results-grid">
+          <div class="card score-card">
+            <h3>CTR Potential Score</h3>
+            <div class="score-display">
+              <div class="score-number" id="scoreNumber">0</div>
+              <div class="score-label">/ 100</div>
             </div>
-
-            <!-- Warnings Section -->
-            <div class="card warnings-card" id="warningsCard">
-                <h3>⚠️ Priority Fixes</h3>
-                <ul id="warningsList" class="warnings-list"></ul>
+            <div class="score-bar">
+              <div class="score-fill" id="scoreFill"></div>
             </div>
+            <p class="score-description" id="scoreDescription"></p>
+          </div>
 
-            <!-- Suggestions Section -->
-            <div class="card suggestions-card">
-                <h3>💡 Recommended Improvements</h3>
-                <div id="suggestionsList" class="suggestions-list"></div>
+          <div class="card warnings-card" id="warningsCard">
+            <h3>⚠ Priority Fixes</h3>
+            <ul id="warningsList" class="warnings-list"></ul>
+          </div>
+
+          <div class="card suggestions-card">
+            <h3>💡 Recommended Improvements</h3>
+            <div id="suggestionsList" class="suggestions-list"></div>
+          </div>
+        </div>
+
+        <div class="card verdict-card" id="verdictCard">
+          <div class="verdict-content">
+            <span class="verdict-icon" id="verdictIcon"></span>
+            <div>
+              <h3 id="verdictTitle">Performance Outlook</h3>
+              <p id="verdictMessage"></p>
             </div>
+          </div>
+        </div>
+      </section>
 
-            <!-- Final Verdict -->
-            <div class="card verdict-card" id="verdictCard">
-                <div class="verdict-content">
-                    <span class="verdict-icon" id="verdictIcon"></span>
-                    <div>
-                        <h3 id="verdictTitle">Performance Outlook</h3>
-                        <p id="verdictMessage"></p>
-                    </div>
-                </div>
-            </div>
-
-        </section>
-
-        <!-- Tips Section -->
-        <section class="tips-section">
-            <h3>Best Practices for Higher CTR</h3>
-            <div class="tips-grid">
-                <div class="tip-card">
-                    <div class="tip-icon">🎯</div>
-                    <h4>Lead with Value</h4>
-                    <p>State the outcome clearly so viewers instantly understand what they will gain by clicking.</p>
-                </div>
-                <div class="tip-card">
-                    <div class="tip-icon">🔥</div>
-                    <h4>Create a Curiosity Gap</h4>
-                    <p>Hint at the transformation or result without giving everything away in the first line.</p>
-                </div>
-                <div class="tip-card">
-                    <div class="tip-icon">✨</div>
-                    <h4>Avoid Redundant Copy</h4>
-                    <p>Use your title and thumbnail for different messages so each element adds new context.</p>
-                </div>
-                <div class="tip-card">
-                    <div class="tip-icon">📏</div>
-                    <h4>Design for Mobile</h4>
-                    <p>Keep titles concise and thumbnail text short so key words remain readable on smaller screens.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Trust & Transparency Section -->
-        <section class="trust-section">
-            <h2>Privacy & Trust</h2>
-            <p class="trust-intro">Built for creators who expect clear insights and responsible data handling.</p>
-            <div class="trust-grid">
-                <div class="trust-card">
-                    <span class="trust-icon">✅</span>
-                    <h4>Free to use</h4>
-                    <p>No subscriptions, no trials, and no hidden fees.</p>
-                </div>
-                <div class="trust-card">
-                    <span class="trust-icon">🔓</span>
-                    <h4>No signup required</h4>
-                    <p>Open the tool and start analyzing instantly.</p>
-                </div>
-                <div class="trust-card">
-                    <span class="trust-icon">🛡️</span>
-                    <h4>No data stored</h4>
-                    <p>Your inputs remain private and are never saved to a server.</p>
-                </div>
-                <div class="trust-card">
-                    <span class="trust-icon">🌐</span>
-                    <h4>Runs in your browser</h4>
-                    <p>Your data is processed locally for speed and privacy.</p>
-                </div>
-                <div class="trust-card">
-                    <span class="trust-icon">🔒</span>
-                    <h4>Privacy first</h4>
-                    <p>Designed with a clear, creator-friendly privacy approach.</p>
-                </div>
-            </div>
-            <p class="trust-disclaimer">This tool is not affiliated with YouTube or Google.</p>
-        </section>
-
-        <!-- FAQ Section -->
-        <section class="faq-section">
-            <h2>Frequently Asked Questions</h2>
-            <p class="faq-intro">Quick answers about CTR benchmarks, scoring logic, and how to use this analyzer effectively.</p>
-            <div class="faq-list">
-                <article class="faq-item">
-                    <h3>What does YouTube CTR measure?</h3>
-                    <p>YouTube CTR (click-through rate) is the percentage of impressions that turn into views. It measures how often people click your video after seeing your thumbnail and title.</p>
-                </article>
-                <article class="faq-item">
-                    <h3>What is a strong CTR benchmark?</h3>
-                    <p>CTR varies by niche, traffic source, and audience quality. Many channels see typical ranges between 2% and 10%, but your most useful benchmark is your own trend over time.</p>
-                </article>
-                <article class="faq-item">
-                    <h3>How is the CTR score calculated?</h3>
-                    <p>The analyzer uses the standard formula: clicks ÷ impressions × 100. For example, 80 clicks from 1,000 impressions equals an 8% CTR.</p>
-                </article>
-                <article class="faq-item">
-                    <h3>Is this tool really free?</h3>
-                    <p>Yes. You can run unlimited checks at no cost, with no signup required.</p>
-                </article>
-                <article class="faq-item">
-                    <h3>Does this tool store my data?</h3>
-                    <p>No. All analysis runs in your browser, and the tool does not collect, store, or transmit your titles, thumbnails, or inputs.</p>
-                </article>
-                <article class="faq-item">
-                    <h3>How can I improve my CTR?</h3>
-                    <p>Use specific titles, stronger hooks, and high-contrast thumbnails. Compare your results over time to identify what consistently improves click-through rate.</p>
-                </article>
-            </div>
-        </section>
-        <script type="application/ld+json">
-            {
-                "@context": "https://schema.org",
-                "@type": "FAQPage",
-                "mainEntity": [
-                    {
-                        "@type": "Question",
-                        "name": "What does YouTube CTR measure?",
-                        "acceptedAnswer": {
-                            "@type": "Answer",
-                            "text": "YouTube CTR (click-through rate) is the percentage of impressions that turn into views. It measures how often people click your video after seeing your thumbnail and title."
-                        }
-                    },
-                    {
-                        "@type": "Question",
-                        "name": "What is a strong CTR benchmark?",
-                        "acceptedAnswer": {
-                            "@type": "Answer",
-                            "text": "CTR varies by niche, traffic source, and audience quality. Many channels see typical ranges between 2% and 10%, but your most useful benchmark is your own trend over time."
-                        }
-                    },
-                    {
-                        "@type": "Question",
-                        "name": "How is the CTR score calculated?",
-                        "acceptedAnswer": {
-                            "@type": "Answer",
-                            "text": "The analyzer uses the standard formula: clicks ÷ impressions × 100. For example, 80 clicks from 1,000 impressions equals an 8% CTR."
-                        }
-                    },
-                    {
-                        "@type": "Question",
-                        "name": "Is this tool really free?",
-                        "acceptedAnswer": {
-                            "@type": "Answer",
-                            "text": "Yes. You can run unlimited checks at no cost, with no signup required."
-                        }
-                    },
-                    {
-                        "@type": "Question",
-                        "name": "Does this tool store my data?",
-                        "acceptedAnswer": {
-                            "@type": "Answer",
-                            "text": "No. All analysis runs in your browser, and the tool does not collect, store, or transmit your titles, thumbnails, or inputs."
-                        }
-                    },
-                    {
-                        "@type": "Question",
-                        "name": "How can I improve my CTR?",
-                        "acceptedAnswer": {
-                            "@type": "Answer",
-                            "text": "Use specific titles, stronger hooks, and high-contrast thumbnails. Compare your results over time to identify what consistently improves click-through rate."
-                        }
-                    }
-                ]
-            }
-        </script>
-
-        <!-- Footer -->
-        <footer class="footer">
-            <p>Built for creators who care about performance.</p>
-            <p class="footer-small">Your data is processed locally • No signup required • 100% client-side</p>
-        </footer>
+      <section class="tips card">
+        <div class="section-head">
+          <h2>CTR Best Practices</h2>
+          <p>Use this checklist to improve publish-day performance.</p>
+        </div>
+        <div class="tips-grid">
+          <article class="tip-card">
+            <span>🎯</span>
+            <h3>Lead with value</h3>
+            <p>State a clear outcome your audience immediately cares about.</p>
+          </article>
+          <article class="tip-card">
+            <span>⚡</span>
+            <h3>Use contrast</h3>
+            <p>Questions, before/after framing, and strong specificity increase curiosity.</p>
+          </article>
+          <article class="tip-card">
+            <span>🧠</span>
+            <h3>Reduce clutter</h3>
+            <p>Keep thumbnail text short and avoid repeating title wording.</p>
+          </article>
+          <article class="tip-card">
+            <span>📱</span>
+            <h3>Design for mobile</h3>
+            <p>Prioritize short, high-impact words that stay readable on small screens.</p>
+          </article>
+        </div>
+      </section>
     </div>
 
     <script src="script.js"></script>
-</body>
+  </body>
 </html>
