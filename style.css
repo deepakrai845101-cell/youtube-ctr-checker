@@ -545,6 +545,69 @@ h3 {
   gap: 16px;
 }
 
+.hashtag-panel {
+  display: grid;
+  gap: 16px;
+}
+
+.hashtag-results {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: linear-gradient(180deg, #ffffff, #f8fbff);
+  padding: 14px;
+  display: grid;
+  gap: 12px;
+}
+
+.hashtag-note {
+  color: var(--text-muted);
+  font-size: 0.92rem;
+}
+
+.hashtag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.hashtag-chip {
+  border: 1px solid #bfdbfe;
+  background: #eff6ff;
+  color: #1d4ed8;
+  border-radius: 999px;
+  padding: 7px 11px;
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
+.hashtag-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.btn-secondary {
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  background: #fff;
+  color: #1e293b;
+  padding: 10px 14px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-secondary:hover {
+  border-color: #94a3b8;
+}
+
+.copy-status {
+  font-size: 0.86rem;
+  color: #166534;
+  min-height: 1em;
+}
+
 .title-checker-results {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
