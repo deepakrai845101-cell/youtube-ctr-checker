@@ -43,11 +43,13 @@ const descriptionOutput = document.getElementById("descriptionOutput")
 const copyDescriptionBtn = document.getElementById("copyDescriptionBtn")
 const copyDescriptionStatus = document.getElementById("copyDescriptionStatus")
 const themeToggle = document.getElementById("themeToggle")
+const copyToast = document.getElementById("copyToast")
 
 const THEME_STORAGE_KEY = "preferredTheme"
 
 let currentHashtags = []
 let currentDescription = ""
+let copyToastTimeoutId
 
 // Results elements
 const scoreNumber = document.getElementById("scoreNumber")
@@ -460,11 +462,17 @@ function displayResults(score, warnings, title, thumbnail) {
   // Display warnings
   warningsList.innerHTML = ""
   if (warnings.length === 0) {
-    warningsList.innerHTML = '<li class="success">✅ Looks strong—no critical issues detected.</li>'
+    const successText = "✅ Looks strong—no critical issues detected."
+    const li = document.createElement("li")
+    li.className = "success"
+    li.textContent = successText
+    li.appendChild(createResultCopyButton(successText, "Copy fix note"))
+    warningsList.appendChild(li)
   } else {
     warnings.forEach((warning) => {
       const li = document.createElement("li")
       li.textContent = warning
+      li.appendChild(createResultCopyButton(warning, "Copy fix note"))
       warningsList.appendChild(li)
     })
   }
@@ -517,6 +525,7 @@ function generateSuggestions(title, thumbnail) {
             <div class="suggestion-label">Template ${index + 1}</div>
             <div class="suggestion-text">${suggestion}</div>
         `
+    div.appendChild(createResultCopyButton(suggestion, `Copy template ${index + 1}`))
 
     suggestionsList.appendChild(div)
   })
@@ -535,6 +544,7 @@ function generateSuggestions(title, thumbnail) {
         <div class="suggestion-label">Strategic Tip</div>
         <div class="suggestion-text">${customSuggestion}</div>
     `
+  customDiv.appendChild(createResultCopyButton(customSuggestion, "Copy custom suggestion"))
 
   suggestionsList.appendChild(customDiv)
 }
@@ -701,18 +711,24 @@ function renderTitleScoreResults(score, breakdown, suggestions) {
   breakdown.forEach((item) => {
     const li = document.createElement("li")
     li.textContent = item
+    li.appendChild(createResultCopyButton(item, "Copy breakdown item"))
     titleBreakdownList.appendChild(li)
   })
 
   titleSuggestionsList.innerHTML = ""
   if (suggestions.length === 0) {
-    titleSuggestionsList.innerHTML = "<li>Excellent work. Your title checks all score factors.</li>"
+    const message = "Excellent work. Your title checks all score factors."
+    const li = document.createElement("li")
+    li.textContent = message
+    li.appendChild(createResultCopyButton(message, "Copy suggestion"))
+    titleSuggestionsList.appendChild(li)
     return
   }
 
   suggestions.forEach((item) => {
     const li = document.createElement("li")
     li.textContent = item
+    li.appendChild(createResultCopyButton(item, "Copy suggestion"))
     titleSuggestionsList.appendChild(li)
   })
 }
@@ -800,10 +816,16 @@ function renderHashtags(hashtags) {
   hashtagList.innerHTML = ""
 
   hashtags.forEach((tag) => {
+    const row = document.createElement("div")
+    row.className = "result-with-copy"
+
     const item = document.createElement("span")
     item.className = "hashtag-chip"
     item.textContent = tag
-    hashtagList.appendChild(item)
+
+    row.appendChild(item)
+    row.appendChild(createResultCopyButton(tag, `Copy ${tag}`))
+    hashtagList.appendChild(row)
   })
 
   hashtagResults.classList.remove("hidden")
@@ -820,6 +842,7 @@ async function copyGeneratedHashtags() {
   try {
     await navigator.clipboard.writeText(hashtagsLine)
     copyHashtagsStatus.textContent = "Copied!"
+    showCopyToast("Hashtags copied")
   } catch {
     copyHashtagsStatus.textContent = "Copy failed. Select and copy manually."
   }
@@ -894,9 +917,44 @@ async function copyGeneratedDescription() {
   try {
     await navigator.clipboard.writeText(currentDescription)
     copyDescriptionStatus.textContent = "Description copied!"
+    showCopyToast("Description copied")
   } catch {
     copyDescriptionStatus.textContent = "Copy failed. Select and copy manually."
   }
+}
+
+
+function createResultCopyButton(value, ariaLabel) {
+  const button = document.createElement("button")
+  button.type = "button"
+  button.className = "result-copy-btn"
+  button.textContent = "Copy"
+  button.setAttribute("aria-label", ariaLabel)
+  button.addEventListener("click", () => {
+    copyResultValue(value)
+  })
+  return button
+}
+
+async function copyResultValue(value) {
+  try {
+    await navigator.clipboard.writeText(value)
+    showCopyToast("Copied")
+  } catch {
+    showCopyToast("Copy failed")
+  }
+}
+
+function showCopyToast(message) {
+  if (!copyToast) return
+
+  copyToast.textContent = message
+  copyToast.classList.add("show")
+
+  clearTimeout(copyToastTimeoutId)
+  copyToastTimeoutId = setTimeout(() => {
+    copyToast.classList.remove("show")
+  }, 1400)
 }
 
 function toTitleCase(value) {
