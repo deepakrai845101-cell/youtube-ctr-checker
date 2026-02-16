@@ -159,6 +159,47 @@ h3 {
   padding: 24px;
 }
 
+.revenue-panel {
+  display: grid;
+  gap: 18px;
+}
+
+.revenue-input-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px 16px;
+}
+
+.revenue-btn {
+  margin-top: 4px;
+}
+
+.revenue-results {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.metric-card {
+  border: 1px solid var(--border);
+  background: linear-gradient(180deg, #ffffff, #f7faff);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  box-shadow: 0 8px 16px rgba(15, 23, 42, 0.05);
+}
+
+.metric-value {
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.metric-note {
+  margin-top: 2px;
+  font-size: 0.84rem;
+  color: var(--text-muted);
+}
+
 .mini-metrics {
   margin-top: 16px;
   display: grid;
@@ -415,6 +456,14 @@ h3 {
   .dashboard-grid,
   .results-grid,
   .tips-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .revenue-results {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .revenue-input-grid {
     grid-template-columns: 1fr;
   }
 
