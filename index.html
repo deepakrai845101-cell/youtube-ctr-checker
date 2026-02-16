@@ -167,6 +167,29 @@
         </div>
       </section>
 
+      <section class="card panel hashtag-panel">
+        <div class="section-head">
+          <h2>YouTube Hashtag Generator</h2>
+          <p>Enter your topic and get 15 ready-to-use hashtags with a balanced mix of broad + targeted search intent.</p>
+        </div>
+
+        <div class="input-group">
+          <label for="hashtagTopicInput">Video topic</label>
+          <input type="text" id="hashtagTopicInput" placeholder="Example: healthy meal prep for beginners" maxlength="120" />
+        </div>
+
+        <button id="generateHashtagsBtn" class="btn-primary">Generate Hashtags</button>
+
+        <div id="hashtagResults" class="hashtag-results hidden" aria-live="polite">
+          <p class="hashtag-note">15 hashtags generated:</p>
+          <div id="hashtagList" class="hashtag-list"></div>
+          <div class="hashtag-actions">
+            <button id="copyHashtagsBtn" class="btn-secondary" type="button">Copy Hashtags</button>
+            <span id="copyHashtagsStatus" class="copy-status" role="status" aria-live="polite"></span>
+          </div>
+        </div>
+      </section>
+
       <section class="card panel thumbnail-panel">
         <div class="section-head">
           <h2>Thumbnail CTR Analyzer</h2>

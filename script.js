@@ -28,6 +28,14 @@ const titleScoreValue = document.getElementById("titleScoreValue")
 const titleScoreSummary = document.getElementById("titleScoreSummary")
 const titleBreakdownList = document.getElementById("titleBreakdownList")
 const titleSuggestionsList = document.getElementById("titleSuggestionsList")
+const hashtagTopicInput = document.getElementById("hashtagTopicInput")
+const generateHashtagsBtn = document.getElementById("generateHashtagsBtn")
+const hashtagResults = document.getElementById("hashtagResults")
+const hashtagList = document.getElementById("hashtagList")
+const copyHashtagsBtn = document.getElementById("copyHashtagsBtn")
+const copyHashtagsStatus = document.getElementById("copyHashtagsStatus")
+
+let currentHashtags = []
 
 // Results elements
 const scoreNumber = document.getElementById("scoreNumber")
@@ -113,6 +121,25 @@ const emotionalWords = [
   "breakthrough",
 ]
 
+
+const topicStopWords = new Set([
+  "a",
+  "an",
+  "and",
+  "for",
+  "the",
+  "to",
+  "of",
+  "in",
+  "on",
+  "with",
+  "how",
+  "your",
+  "my",
+  "from",
+  "by",
+])
+
 // Title templates for suggestions
 const titleTemplates = [
   "I Tried [TOPIC] So You Don't Have To",
@@ -153,6 +180,8 @@ thumbnailTextInput.addEventListener("input", (e) => {
 analyzeBtn.addEventListener("click", analyzeContent)
 calculateRevenueBtn.addEventListener("click", calculateRevenueMetrics)
 checkTitleScoreBtn.addEventListener("click", checkTitleScore)
+generateHashtagsBtn.addEventListener("click", generateHashtags)
+copyHashtagsBtn.addEventListener("click", copyGeneratedHashtags)
 
 // Allow Enter key to trigger analysis
 videoTitleInput.addEventListener("keypress", (e) => {
@@ -165,6 +194,10 @@ thumbnailTextInput.addEventListener("keypress", (e) => {
 
 titleCheckerInput.addEventListener("keypress", (e) => {
   if (e.key === "Enter") checkTitleScore()
+})
+
+hashtagTopicInput.addEventListener("keypress", (e) => {
+  if (e.key === "Enter") generateHashtags()
 })
 
 const revenueInputs = [viewsInput, clicksInput, cpmInput, rpmInput]
@@ -629,6 +662,114 @@ function renderTitleScoreResults(score, breakdown, suggestions) {
     li.textContent = item
     titleSuggestionsList.appendChild(li)
   })
+}
+
+
+function generateHashtags() {
+  const topic = hashtagTopicInput.value.trim()
+
+  if (!topic) {
+    alert("Enter a topic to generate hashtags.")
+    return
+  }
+
+  currentHashtags = buildHashtagSet(topic)
+  renderHashtags(currentHashtags)
+  copyHashtagsStatus.textContent = ""
+}
+
+function buildHashtagSet(topic) {
+  const cleanedTopic = topic
+    .toLowerCase()
+    .replace(/[^a-z0-9\s]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim()
+
+  const words = cleanedTopic.split(" ").filter((word) => word.length > 1)
+  const filteredWords = words.filter((word) => !topicStopWords.has(word))
+  const topicWords = filteredWords.length > 0 ? filteredWords : words
+
+  const topicStem = topicWords.join("")
+  const topicPrefix = topicWords.slice(0, 2).join("") || "youtube"
+
+  const broadHighSearch = [
+    "youtube",
+    "youtubetips",
+    "youtubegrowth",
+    "contentcreator",
+    "videoediting",
+    "videomarketing",
+    "socialmediatips",
+    "creatorstrategy",
+  ]
+
+  const topicMediumSearch = [
+    topicStem,
+    `${topicStem}tips`,
+    `${topicStem}tutorial`,
+    `${topicStem}forbeginners`,
+    `${topicStem}strategy`,
+    `${topicPrefix}guide`,
+    `${topicPrefix}channel`,
+    `${topicPrefix}content`,
+    `${topicStem}2026`,
+  ]
+
+  const uniqueHashtags = []
+  const seen = new Set()
+
+  ;[...topicMediumSearch, ...broadHighSearch].forEach((candidate) => {
+    const tag = toHashtag(candidate)
+    if (!tag || seen.has(tag)) return
+    seen.add(tag)
+    uniqueHashtags.push(tag)
+  })
+
+  const fallbackTags = ["youtubecreator", "viralvideo", "growthmindset", "contenttips", "youtubeshorts"]
+  fallbackTags.forEach((candidate) => {
+    const tag = toHashtag(candidate)
+    if (!seen.has(tag) && uniqueHashtags.length < 15) {
+      seen.add(tag)
+      uniqueHashtags.push(tag)
+    }
+  })
+
+  return uniqueHashtags.slice(0, 15)
+}
+
+function toHashtag(value) {
+  const cleaned = value.toLowerCase().replace(/[^a-z0-9]/g, "")
+  if (!cleaned) return ""
+  return `#${cleaned}`
+}
+
+function renderHashtags(hashtags) {
+  hashtagList.innerHTML = ""
+
+  hashtags.forEach((tag) => {
+    const item = document.createElement("span")
+    item.className = "hashtag-chip"
+    item.textContent = tag
+    hashtagList.appendChild(item)
+  })
+
+  hashtagResults.classList.remove("hidden")
+}
+
+async function copyGeneratedHashtags() {
+  if (currentHashtags.length === 0) {
+    copyHashtagsStatus.textContent = "Generate hashtags first."
+    return
+  }
+
+  const hashtagsLine = currentHashtags.join(" ")
+
+  try {
+    await navigator.clipboard.writeText(hashtagsLine)
+    copyHashtagsStatus.textContent = "Copied!"
+  } catch {
+    copyHashtagsStatus.textContent = "Copy failed. Select and copy manually."
+  }
 }
 
 function isValidNonNegative(value) {
