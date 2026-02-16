@@ -135,6 +135,38 @@
         </section>
       </main>
 
+      <section class="card panel title-checker-panel">
+        <div class="section-head">
+          <h2>YouTube Title Score Checker</h2>
+          <p>Enter a title to evaluate length, emotional wording, numbers, power words, and question format.</p>
+        </div>
+
+        <div class="input-group">
+          <label for="titleCheckerInput">YouTube title</label>
+          <input type="text" id="titleCheckerInput" placeholder="Example: 7 Mistakes That Kill Your YouTube Growth" maxlength="150" />
+        </div>
+
+        <button id="checkTitleScoreBtn" class="btn-primary">Check Title Score</button>
+
+        <div id="titleCheckerResults" class="title-checker-results hidden" aria-live="polite">
+          <article class="metric-card title-score-card">
+            <h3>Title Score</h3>
+            <p class="metric-value"><span id="titleScoreValue">0</span><span class="score-total">/100</span></p>
+            <p class="metric-note" id="titleScoreSummary">Run the checker to see your score.</p>
+          </article>
+
+          <article class="metric-card title-breakdown-card">
+            <h3>Scoring Breakdown</h3>
+            <ul class="title-breakdown-list" id="titleBreakdownList"></ul>
+          </article>
+
+          <article class="metric-card title-suggestions-card">
+            <h3>Improvement Suggestions</h3>
+            <ul class="title-suggestions-list" id="titleSuggestionsList"></ul>
+          </article>
+        </div>
+      </section>
+
       <section class="card panel thumbnail-panel">
         <div class="section-head">
           <h2>Thumbnail CTR Analyzer</h2>
